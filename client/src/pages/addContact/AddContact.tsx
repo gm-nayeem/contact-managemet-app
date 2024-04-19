@@ -1,14 +1,39 @@
 import { FormEvent } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import "./addContact.css";
-import Form from "../../components/form/Form";
 import { Contact } from "../../types/intex";
+import Form from "../../components/form/Form";
+import { createContact } from "../../redux/apiCalls";
+import upload from "../../utils/upload";
+import { addContact } from "../../redux/contactReducer";
 
 const AddContact = () => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>, contact: Contact) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>,
+    contact: Contact
+  ) => {
     e.preventDefault();
 
-    console.log(contact);
+    if (contact.profilePicture) {
+      const url = await upload(contact.profilePicture);
+
+      if (url) {
+        const data = await createContact({
+          ...contact,
+          profilePicture: url,
+        });
+
+        if (data) {
+          dispatch(addContact(data));
+          navigate("/contacts");
+        }
+      }
+    }
   };
 
   return (
@@ -17,6 +42,7 @@ const AddContact = () => {
         title="Add New Contact"
         buttonLabel="Add Contact"
         handleSubmit={handleSubmit}
+        required={true}
       />
     </div>
   );

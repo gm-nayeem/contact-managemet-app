@@ -2,14 +2,23 @@ import { useState, ChangeEvent, FormEvent } from "react";
 
 import "./form.css";
 import { Contact } from "../../types/intex";
+import useUpdateModal from "../../hooks/useUpdateModal";
 
 interface FormProps {
   title: string;
   buttonLabel: string;
   handleSubmit: (e: any, contact: Contact) => void;
+  cancelButton?: string;
+  required?: boolean;
 }
 
-const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
+const Form = ({
+  title,
+  buttonLabel,
+  handleSubmit,
+  cancelButton,
+  required,
+}: FormProps) => {
   const [newContact, setNewContact] = useState({
     name: "",
     email: "",
@@ -17,6 +26,8 @@ const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
     address: "",
   });
   const [file, setFile] = useState("");
+
+  const updateModal = useUpdateModal();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,7 +60,7 @@ const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
             name="name"
             placeholder="enter full name"
             value={newContact.name}
-            required
+            required={required}
             onChange={handleChange}
           />
         </div>
@@ -74,7 +85,7 @@ const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
             name="phone"
             placeholder="enter phone number"
             value={newContact.phone}
-            required
+            required={required}
             onChange={handleChange}
           />
         </div>
@@ -87,7 +98,7 @@ const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
             name="address"
             placeholder="enter address"
             value={newContact.address}
-            required
+            required={required}
             onChange={handleChange}
           />
         </div>
@@ -98,11 +109,18 @@ const Form = ({ title, buttonLabel, handleSubmit }: FormProps) => {
           <input
             type="file"
             name="file"
-            required
+            required={required}
             onChange={(e: any) => setFile(e.target.files[0])}
           />
         </div>
-        <button type="submit">{buttonLabel}</button>
+        <div className="form-group">
+          {cancelButton && (
+            <button onClick={() => updateModal.onClose()}>
+              {cancelButton}
+            </button>
+          )}
+          <button type="submit">{buttonLabel}</button>
+        </div>
       </form>
     </div>
   );

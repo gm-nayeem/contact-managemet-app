@@ -4,6 +4,7 @@ const createError = require('http-errors');
 
 const middlewares = require('./middlewares');
 const contactRoute = require('./routes/contactRoute');
+const { errorResponse } = require('./controllers/responseController');
 
 const app = express();
 
