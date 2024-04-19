@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+:root {
+    height: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+main {
+    width: 100vw;
+    height: calc(100vh - 52px);
+}

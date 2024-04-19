@@ -1,0 +1,9 @@
+.all-contact {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}

@@ -1,7 +1,12 @@
-import React from "react";
+import "./app.css";
+import Index from "./routes";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Index />
+    </div>
+  );
 };
 
 export default App;
