@@ -5,12 +5,11 @@ import { BsFillBookmarkCheckFill } from "react-icons/bs";
 
 import "./card.css";
 import { deleteContact } from "../../redux/apiCalls";
-import { removeContact } from "../../redux/contactReducer";
+import { removeContact, addCurrentContactId } from "../../redux/contactReducer";
 import useUpdateModal from "../../hooks/useUpdateModal";
 import UpdateModal from "../modals/updateModal";
 
 const Card = ({ contact }: { contact: any }) => {
-  const [contactId, setContactID] = useState("");
   const [isBookmark, setIsBookmark] = useState(false);
 
   const updateModal = useUpdateModal();
@@ -39,8 +38,8 @@ const Card = ({ contact }: { contact: any }) => {
         <div className="btn">
           <button
             onClick={() => {
+              dispatch(addCurrentContactId(contact?._id));
               updateModal.onOpen();
-              setContactID(contact?._id);
             }}
           >
             Update
@@ -64,7 +63,7 @@ const Card = ({ contact }: { contact: any }) => {
         )}
       </div>
 
-      {updateModal.isOpen && <UpdateModal contactId={contactId} />}
+      {updateModal.isOpen && <UpdateModal />}
     </div>
   );
 };

@@ -5,11 +5,13 @@ import Form from "../form/Form";
 import { Contact } from "../../types/intex";
 import { modifyContact } from "../../redux/apiCalls";
 import { updateContact } from "../../redux/contactReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useUpdateModal from "../../hooks/useUpdateModal";
 import upload from "../../utils/upload";
 
-const UpdateModal = ({ contactId }: { contactId: string }) => {
+const UpdateModal = () => {
+  const contactId = useSelector((state: any) => state.contact.currentContactId);
+
   const updateModal = useUpdateModal();
 
   const dispatch = useDispatch();

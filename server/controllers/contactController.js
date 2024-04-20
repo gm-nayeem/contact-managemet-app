@@ -46,6 +46,8 @@ const updateContact = async (req, res, next) => {
             ...req.body
         };
 
+        console.log('updateContact', updateContact);
+
         const updatedContact = await Contact.findByIdAndUpdate(
             id,
             {
